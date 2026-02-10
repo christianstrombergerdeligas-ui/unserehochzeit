@@ -65,59 +65,5 @@
   </footer>
 
   <script src="https://open.spotify.com/embed-podcast/iframe-api/v1" async></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Admin-Status prüfen
-      const adminBtn = document.getElementById('adminToggle');
-      if (adminBtn) {
-        adminBtn.addEventListener('click', async (e) => {
-          e.preventDefault();
-          const isAdmin = localStorage.getItem('adminLoggedIn') === 'true';
-          if (isAdmin) {
-            // Admin logout
-            localStorage.setItem('adminLoggedIn', false);
-            alert('Admin-Modus deaktiviert.');
-            window.dispatchEvent(new Event('adminStateChanged'));
-          } else {
-            // Admin login
-            const password = prompt('Admin-Passwort eingeben:');
-            if (password) {
-              // SHA-256 Hash des Passworts
-              const msgBuffer = new TextEncoder().encode(password);
-              const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-              const hashArray = Array.from(new Uint8Array(hashBuffer));
-              const hash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-              
-              if (hash === 'a9d5b1efde4fa888bcde914dd1eec6b67011b32af8e57a242a497a5156298fc4') {
-                localStorage.setItem('adminLoggedIn', 'true');
-                alert('Admin-Modus aktiviert!');
-                window.dispatchEvent(new Event('adminStateChanged'));
-              } else {
-                alert('Falsches Passwort!');
-              }
-            }
-          }
-          location.reload();
-        });
-      }
-
-      // Hamburger Menu
-      const hamburger = document.getElementById('hamburger');
-      const navMenu = document.getElementById('navMenu');
-      if (hamburger && navMenu) {
-        hamburger.addEventListener('click', () => {
-          navMenu.classList.toggle('active');
-          hamburger.classList.toggle('active');
-        });
-
-        navMenu.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-            hamburger.classList.remove('active');
-          });
-        });
-      }
-    });
-  </script>
 </body>
 </html>

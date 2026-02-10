@@ -61,11 +61,10 @@
       </div>
     </section>
 
-    <!-- Admin-Only Paar-Foto Platzhalter -->
-    <section class="admin-only-image rsvp-couple-photo">
+    <!-- Paar-Foto -->
+    <section class="rsvp-couple-photo">
       <div class="couple-photo-container">
-        <img src="https://images.unsplash.com/photo-1529634597860-2feb8ea991c3?w=800&h=600&fit=crop" alt="Jenica & Christian" loading="lazy">
-        <p class="admin-label">🔒 Admin: Paarfoto-Platzhalter</p>
+        <img src="Bilder/Das-sind-wir-2.jpeg" alt="Jenica & Christian" loading="lazy">
       </div>
     </section>
 
@@ -124,17 +123,6 @@
   <footer>
     © 2026 Jenica und Christian
   </footer>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Admin-Only Bilder anzeigen
-      if (window.isAdminMode && window.isAdminMode()) {
-        document.querySelectorAll('.admin-only-image').forEach(el => {
-          el.style.display = 'block';
-        });
-      }
-    });
-  </script>
 
 </body>
 </html>

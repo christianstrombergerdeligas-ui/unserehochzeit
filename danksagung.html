@@ -76,14 +76,6 @@
         <p>Eure Anwesenheit und eure Liebe haben unseren Tag perfekt gemacht. Wir fühlen uns gesegnet, euch alle in unserem Leben zu haben.</p>
         <p class="signature">Mit liebevollen Grüßen,<br><strong>Jenica & Christian</strong></p>
       </div>
-
-      <!-- Admin-Only Paar-Foto -->
-      <div class="admin-only-image thanks-couple-photo">
-        <div class="couple-photo-container">
-          <img src="Bilder/Das-sind-wir-2.jpeg" alt="Jenica & Christian" loading="lazy">
-          <p class="admin-label">🔒 Admin: Paarfoto</p>
-        </div>
-      </div>
     </section>
   </main>
 
@@ -102,13 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
       <h1>Danksagung</h1>
       <p class="gratitude-lead">Diese Seite wird nach unserer Hochzeit am 16. Mai 2026 verfügbar sein. Wir freuen uns darauf, uns dann bei euch allen zu bedanken!</p>
     `;
-  }
-
-  // Admin-Only Bilder anzeigen
-  if (window.isAdminMode && window.isAdminMode()) {
-    document.querySelectorAll('.admin-only-image').forEach(el => {
-      el.style.display = 'block';
-    });
   }
 });
 </script>

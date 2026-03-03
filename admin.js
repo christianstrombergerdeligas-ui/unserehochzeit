@@ -1,10 +1,10 @@
 // ===== Zentrales Admin-System =====
 // SHA-256 Hash des Admin-Passworts
 const ADMIN_PASSWORD_HASH = 'a9d5b1efde4fa888bcde914dd1eec6b67011b32af8e57a242a497a5156298fc4';
-const GUESTBOOK_AVAILABLE_DATE = new Date(2026, 4, 15);
-const ABLAUFPLAN_AVAILABLE_DATE = new Date(2026, 4, 1);
-const BUFFET_AVAILABLE_DATE = new Date(2026, 4, 1);
-const DANKSAGUNG_AVAILABLE_DATE = new Date(2026, 4, 16);
+const GUESTBOOK_AVAILABLE_DATE = new Date(2026, 5, 15);
+const ABLAUFPLAN_AVAILABLE_DATE = new Date(2026, 5, 15);
+const BUFFET_AVAILABLE_DATE = new Date(2026, 5, 15);
+const DANKSAGUNG_AVAILABLE_DATE = new Date(2026, 5, 20);
 let isAdmin = false;
 
 // Sichere localStorage Zugriffe mit Fehlerbehandlung

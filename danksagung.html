@@ -85,14 +85,14 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const releaseDate = new Date('2026-05-16T00:00:00');
+  const releaseDate = new Date('2026-05-20T00:00:00');
   const section = document.getElementById('danksagungSection');
 
   if(new Date() < releaseDate && (!window.isAdminMode || !window.isAdminMode())){
     section.innerHTML = `
       <div class="gratitude-icon">🔒</div>
       <h1>Danksagung</h1>
-      <p class="gratitude-lead">Diese Seite wird nach unserer Hochzeit am 16. Mai 2026 verfügbar sein. Wir freuen uns darauf, uns dann bei euch allen zu bedanken!</p>
+      <p class="gratitude-lead">Diese Seite wird ab dem 20. Mai 2026 verfügbar sein. Wir freuen uns darauf, uns dann bei euch allen zu bedanken!</p>
     `;
   }
 });

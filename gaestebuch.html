@@ -27,6 +27,16 @@
       <a href="unterhaltung.html">Unterhaltung</a>
       <a href="gaestebuch.html" id="guestbookLink" style="display:none;">Gästebuch</a>
       <a href="danksagung.html" id="danksagungLink" style="display:none;">Danksagung</a>
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const guestbookDate = new Date(2026, 4, 15); // 15.05.2026
+            const guestbookLink = document.getElementById('guestbookLink');
+            if (guestbookLink && (today >= guestbookDate || (window.isAdminMode && window.isAdminMode()))) {
+              guestbookLink.style.display = 'inline-block';
+            }
+          });
+        </script>
       <a href="admin.html" id="adminLink" style="display:none;">⚙️ Admin</a>
     </nav>
   </header>

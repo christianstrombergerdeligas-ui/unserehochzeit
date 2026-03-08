@@ -1,3 +1,11 @@
+/* Deaktivierte Navigationslinks für zukünftige Veröffentlichungen */
+.disabled-link {
+  color: #aaa !important;
+  pointer-events: none;
+  cursor: not-allowed;
+  text-decoration: line-through;
+  opacity: 0.7;
+}
 /* Buffet Menü-Showcase volle Breite */
 .menu-showcase {
   max-width: 1200px;

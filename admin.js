@@ -1,10 +1,10 @@
 // ===== Zentrales Admin-System =====
 // SHA-256 Hash des Admin-Passworts
 const ADMIN_PASSWORD_HASH = 'a9d5b1efde4fa888bcde914dd1eec6b67011b32af8e57a242a497a5156298fc4';
-const GUESTBOOK_AVAILABLE_DATE = new Date(2026, 5, 15);
-const ABLAUFPLAN_AVAILABLE_DATE = new Date(2026, 5, 15);
-const BUFFET_AVAILABLE_DATE = new Date(2026, 5, 15);
-const DANKSAGUNG_AVAILABLE_DATE = new Date(2026, 5, 20);
+const GUESTBOOK_AVAILABLE_DATE = new Date(2026, 4, 15); // 15.05.2026
+const ABLAUFPLAN_AVAILABLE_DATE = new Date(2026, 4, 10); // 10.05.2026
+const BUFFET_AVAILABLE_DATE = new Date(2026, 4, 15, 17, 30); // 15.05.2026 17:30
+const DANKSAGUNG_AVAILABLE_DATE = new Date(2026, 4, 20); // 20.05.2026
 let isAdmin = false;
 
 // Sichere localStorage Zugriffe mit Fehlerbehandlung
@@ -29,17 +29,23 @@ function saveToStorage(key, value) {
 // Feature-Sichtbarkeit mit Loop
 function checkFeatureAvailability() {
   const today = new Date();
-  const features = {
-    guestbookLink: isAdmin || today >= GUESTBOOK_AVAILABLE_DATE ? 'inline-block' : 'none',
-    ablaufplanLink: isAdmin || today >= ABLAUFPLAN_AVAILABLE_DATE ? 'inline-block' : 'none',
-    buffetLink: isAdmin || today >= BUFFET_AVAILABLE_DATE ? 'inline-block' : 'none',
-    danksagungLink: isAdmin || today >= DANKSAGUNG_AVAILABLE_DATE ? 'inline-block' : 'none',
+  const features = [
+    { id: 'guestbookLink', date: GUESTBOOK_AVAILABLE_DATE, label: 'Gästebuch', info: 'ab 15.05.2026' },
+    { id: 'ablaufplanLink', date: ABLAUFPLAN_AVAILABLE_DATE, label: 'Ablaufplan', info: 'ab 10.05.2026' },
+    { id: 'buffetLink', date: BUFFET_AVAILABLE_DATE, label: 'Buffet', info: 'ab 15.05.2026, 17:30 Uhr' },
+    { id: 'danksagungLink', date: DANKSAGUNG_AVAILABLE_DATE, label: 'Danksagung', info: 'ab 20.05.2026' }
+  ];
+  features.forEach(({id}) => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'inline-block';
+  });
+  // Admin/History/Guestlist wie gehabt
+  const adminFeatures = {
     historyLink: isAdmin ? 'inline-block' : 'none',
     adminLink: isAdmin ? 'inline-block' : 'none',
     guestListSection: isAdmin ? 'block' : 'none'
   };
-  
-  Object.entries(features).forEach(([id, display]) => {
+  Object.entries(adminFeatures).forEach(([id, display]) => {
     const el = document.getElementById(id);
     if (el) el.style.display = display;
   });

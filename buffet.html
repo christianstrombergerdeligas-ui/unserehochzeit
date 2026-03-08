@@ -31,16 +31,7 @@
   </header>
 
   <main>
-    <section id="buffetLocked" class="buffet-locked">
-      <div class="locked-content">
-        <div class="locked-icon">🔒</div>
-        <h1>Buffet-Menü</h1>
-        <p class="locked-message">Das Menü wird ab dem 01. Mai 2026 hier veröffentlicht. Freut euch auf kulinarische Köstlichkeiten!</p>
-        <div class="locked-date">📅 Verfügbar ab: 01.05.2026</div>
-      </div>
-    </section>
-
-    <section id="buffetContainer" class="buffet-content" style="display:none;">
+    <section id="buffetContainer" class="buffet-content">
       <div class="buffet-hero">
         <div class="buffet-hero-content">
           <div class="buffet-hero-icon">🍽️</div>
@@ -78,8 +69,8 @@
           </div>
           <ul class="menu-items">
             <li>
-              <span class="item-name">Kaffee & Tee</span>
-              <span class="item-desc">frisch gebrüht, verschiedene Sorten</span>
+              <span class="item-name">Kaffee</span>
+              <span class="item-desc">verschiedene Sorten</span>
             </li>
             <li>
               <span class="item-name">Kuchen-Auswahl</span>
@@ -184,19 +175,19 @@
           <div class="info-card">
             <div class="info-card-icon">⏰</div>
             <h3>Buffeteröffnung</h3>
-            <p>Das Buffet wird um [Uhrzeit] Uhr eröffnet. Unser Service-Personal steht euch den ganzen Abend für Getränke und Service zur Verfügung.</p>
+            <p>Das Buffet wird um 17:30 Uhr eröffnet. Unser Service-Personal steht euch den ganzen Abend für Getränke und Service zur Verfügung.</p>
           </div>
           <div class="info-card">
             <div class="info-card-icon">🥂</div>
             <h3>Getränke</h3>
-            <p>Softdrinks, Wasser, Kaffee und Tee stehen den ganzen Tag zur Verfügung. Wein und Sekt werden zum Essen serviert.</p>
+            <p>Softdrinks, Wasser und Kaffee stehen den ganzen Tag zur Verfügung. Wein und Sekt werden zum Essen serviert.</p>
           </div>
         </div>
       </div>
 
       <!-- Admin Only Information -->
-      <div class="buffet-info buffet-info-admin admin-only" style="display:none;">
-        <h2>🔒 Anbieter-Informationen (nur für Admins)</h2>
+      <div class="buffet-info buffet-info-admin">
+        <h2>🍴 Anbieter-Informationen</h2>
         <div class="info-cards">
           <div class="info-card">
             <div class="info-card-icon">🍴</div>
@@ -220,7 +211,7 @@
             <p><strong>Leistung:</strong> Service-Personal vor Ort<br>
             <strong>Aufgaben:</strong> Getränkebedienung, Abräumen des Buffets, Teller & Besteck<br>
             <strong>Bereitstellung:</strong> Klein Catering GmbH<br>
-            <strong>Zeitraum:</strong> [Uhrzeit Beginn] - [Uhrzeit Ende]</p>
+            <strong>Zeitraum:</strong> ab 12:00 Uhr</p>
           </div>
         </div>
       </div>
@@ -229,21 +220,260 @@
 
 
   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const now = new Date();
+      // Zeitpunkte für einzelne Buffet-Abschnitte
+      const fingerfoodDate = new Date(2026, 4, 15, 12, 0);
+      const kaffeeDate = new Date(2026, 4, 15, 14, 0);
+      const torteDate = new Date(2026, 4, 15, 19, 30);
+      const imbissDate = new Date(2026, 4, 15, 21, 30);
+      const mainBuffetDate = new Date(2026, 4, 15, 17, 30);
+
+      // Helper für Buffet-Elemente
+      function showOrHint(element, date, label, info) {
+        if (!element) return;
+        const isAdmin = window.isAdminMode && window.isAdminMode();
+        if (now >= date || isAdmin) {
+          element.style.display = '';
+          const hint = element.querySelector('.buffet-hint');
+          if (hint) hint.remove();
+          Array.from(element.children).forEach(child => {
+            if (child.style) child.style.display = '';
+          });
+        } else {
+          element.style.display = '';
+          let hint = element.querySelector('.buffet-hint');
+          if (!hint) {
+            hint = document.createElement('div');
+            hint.className = 'buffet-hint';
+            hint.style = 'padding:1.5em 1em;text-align:center;color:#888;font-style:italic;background:#f8f8f8;border-radius:1em;margin:1em 0;';
+            element.insertBefore(hint, element.firstChild.nextSibling);
+          }
+          hint.innerHTML = `Verfügbar ab: <b>${info}</b>`;
+          Array.from(element.children).forEach(child => {
+            if (child !== hint && !child.classList.contains('menu-card-header')) child.style.display = 'none';
+          });
+        }
+      }
+
+      // Helper für Anbieter-Boxen
+      function showProviderOrHint(box, date, info) {
+        if (!box) return;
+        const isAdmin = window.isAdminMode && window.isAdminMode();
+        if (now >= date || isAdmin) {
+          box.style.display = '';
+          const hint = box.querySelector('.buffet-hint');
+          if (hint) hint.remove();
+          Array.from(box.children).forEach(child => {
+            if (child.style) child.style.display = '';
+          });
+        } else {
+          box.style.display = '';
+          let hint = box.querySelector('.buffet-hint');
+          if (!hint) {
+            hint = document.createElement('div');
+            hint.className = 'buffet-hint';
+            hint.style = 'padding:1.5em 1em;text-align:center;color:#888;font-style:italic;background:#f8f8f8;border-radius:1em;margin:1em 0;';
+            box.insertBefore(hint, box.firstChild.nextSibling);
+          }
+          hint.innerHTML = `Verfügbar ab: <b>${info}</b>`;
+          Array.from(box.children).forEach(child => {
+            if (child !== hint && !child.classList.contains('info-card-icon') && child.tagName !== 'H3') child.style.display = 'none';
+          });
+        }
+      }
+
+      // Buffet-Elemente
+      const fingerfood = Array.from(document.querySelectorAll('.menu-card-header h3')).find(h3 => h3.textContent.includes('Fingerfood'))?.closest('.menu-card');
+      showOrHint(fingerfood, fingerfoodDate, 'Fingerfood zum Sektempfang', '15.05.2026, 12:00 Uhr');
+      const kaffee = Array.from(document.querySelectorAll('.menu-card-header h3')).find(h3 => h3.textContent.includes('Kaffee und Kuchen'))?.closest('.menu-card');
+      showOrHint(kaffee, kaffeeDate, 'Kaffee und Kuchen', '15.05.2026, 14:00 Uhr');
+      const vorspeisen = Array.from(document.querySelectorAll('.menu-card-header h3')).find(h3 => h3.textContent.includes('Vorspeisen'))?.closest('.menu-card');
+      showOrHint(vorspeisen, mainBuffetDate, 'Vorspeisen', '15.05.2026, 17:30 Uhr');
+      const hauptspeisen = Array.from(document.querySelectorAll('.menu-card-header h3')).find(h3 => h3.textContent.includes('Hauptspeisen'))?.closest('.menu-card');
+      showOrHint(hauptspeisen, mainBuffetDate, 'Hauptspeisen', '15.05.2026, 17:30 Uhr');
+      const beilagen = Array.from(document.querySelectorAll('.menu-card-header h3')).find(h3 => h3.textContent.includes('Beilagen'))?.closest('.menu-card');
+      showOrHint(beilagen, mainBuffetDate, 'Beilagen & Gemüse', '15.05.2026, 17:30 Uhr');
+      const sossen = Array.from(document.querySelectorAll('.menu-card-header h3')).find(h3 => h3.textContent.includes('Soßen'))?.closest('.menu-card');
+      showOrHint(sossen, mainBuffetDate, 'Soßen', '15.05.2026, 17:30 Uhr');
+      const torte = Array.from(document.querySelectorAll('.menu-card-header h3')).find(h3 => h3.textContent.includes('Hochzeitstorte'))?.closest('.menu-card');
+      showOrHint(torte, torteDate, 'Hochzeitstorte', '15.05.2026, 19:30 Uhr');
+      const imbiss = Array.from(document.querySelectorAll('.menu-card-header h3')).find(h3 => h3.textContent.includes('Mitternachtsimbiss'))?.closest('.menu-card');
+      showOrHint(imbiss, imbissDate, 'Mitternachtsimbiss', '15.05.2026, 21:30 Uhr');
+
+      // Anbieter-Boxen
+      const cateringBox = Array.from(document.querySelectorAll('.buffet-info-admin .info-card')).find(card => card.querySelector('h3')?.textContent.includes('Buffet-Catering'));
+      const anbieterStart = new Date(2026, 4, 15, 17, 30);
+      showProviderOrHint(cateringBox, anbieterStart, '15.05.2026, 17:30 Uhr');
+      const torteBox = Array.from(document.querySelectorAll('.buffet-info-admin .info-card')).find(card => card.querySelector('h3')?.textContent.includes('Hochzeitstorte'));
+      const torteStart = new Date(2026, 4, 15, 19, 30);
+      showProviderOrHint(torteBox, torteStart, '15.05.2026, 19:30 Uhr');
+      const serviceBox = Array.from(document.querySelectorAll('.buffet-info-admin .info-card')).find(card => card.querySelector('h3')?.textContent.includes('Service-Personal'));
+      const serviceStart = new Date(2026, 4, 15, 12, 0);
+      showProviderOrHint(serviceBox, serviceStart, '15.05.2026, 12:00 Uhr');
+
+      // Show admin-only sections for admin users
+      if (window.isAdminMode && window.isAdminMode()) {
+        const adminElements = document.querySelectorAll('.admin-only');
+        adminElements.forEach(element => {
+          element.style.display = 'block';
+        });
+      }
+    });
+      // Zeitpunkte für einzelne Buffet-Abschnitte
+      const fingerfoodDate = new Date(2026, 4, 15, 12, 0); // 15.05.2026 12:00
+      const kaffeeDate = new Date(2026, 4, 15, 14, 0); // 15.05.2026 14:00
+      const torteDate = new Date(2026, 4, 15, 19, 30); // 15.05.2026 19:30
+      const imbissDate = new Date(2026, 4, 15, 21, 30); // 15.05.2026 21:30
+      const mainBuffetDate = new Date(2026, 4, 15, 17, 30); // 15.05.2026 17:30
+
+    // Die gesamte Zeitsteuerung und showOrHint-Logik wird erst nach DOMContentLoaded ausgeführt
+    document.addEventListener('DOMContentLoaded', function() {
+      const today = new Date();
+      // Zeitpunkte für einzelne Buffet-Abschnitte
+      const fingerfoodDate = new Date(2026, 4, 15, 12, 0); // 15.05.2026 12:00
+      const kaffeeDate = new Date(2026, 4, 15, 14, 0); // 15.05.2026 14:00
+      const torteDate = new Date(2026, 4, 15, 19, 30); // 15.05.2026 19:30
+      const imbissDate = new Date(2026, 4, 15, 21, 30); // 15.05.2026 21:30
+      const mainBuffetDate = new Date(2026, 4, 15, 17, 30); // 15.05.2026 17:30
+
+      function showOrHint(element, date, label, info) {
+        if (!element) return;
+        if (today >= date || (window.isAdminMode && window.isAdminMode())) {
+          element.style.display = '';
+          const hint = element.querySelector('.buffet-hint');
+          if (hint) hint.remove();
+          Array.from(element.children).forEach(child => {
+            if (child.style) child.style.display = '';
+          });
+        } else {
+          element.style.display = '';
+          // Inhalt ausblenden, Hinweis einblenden
+          let hint = element.querySelector('.buffet-hint');
+          if (!hint) {
+            hint = document.createElement('div');
+            hint.className = 'buffet-hint';
+            hint.style = 'padding:1.5em 1em;text-align:center;color:#888;font-style:italic;background:#f8f8f8;border-radius:1em;margin:1em 0;';
+            element.insertBefore(hint, element.firstChild.nextSibling); // nach Header
+          }
+          hint.innerHTML = `Verfügbar ab: <b>${info}</b>`;
+          // Alle anderen Inhalte ausblenden (außer Header und Hinweis)
+          Array.from(element.children).forEach(child => {
+            if (child !== hint && !child.classList.contains('menu-card-header')) child.style.display = 'none';
+          });
+        }
+      }
+
+      // Fingerfood
+      const fingerfood = Array.from(document.querySelectorAll('.menu-card-header h3')).find(h3 => h3.textContent.includes('Fingerfood'))?.closest('.menu-card');
+      showOrHint(fingerfood, fingerfoodDate, 'Fingerfood zum Sektempfang', '15.05.2026, 12:00 Uhr');
+
+      // Kaffee und Kuchen
+      const kaffee = Array.from(document.querySelectorAll('.menu-card-header h3')).find(h3 => h3.textContent.includes('Kaffee und Kuchen'))?.closest('.menu-card');
+      showOrHint(kaffee, kaffeeDate, 'Kaffee und Kuchen', '15.05.2026, 14:00 Uhr');
+
+      // Vorspeisen
+      const vorspeisen = Array.from(document.querySelectorAll('.menu-card-header h3')).find(h3 => h3.textContent.includes('Vorspeisen'))?.closest('.menu-card');
+      showOrHint(vorspeisen, mainBuffetDate, 'Vorspeisen', '15.05.2026, 17:30 Uhr');
+
+      // Hauptspeisen
+      const hauptspeisen = Array.from(document.querySelectorAll('.menu-card-header h3')).find(h3 => h3.textContent.includes('Hauptspeisen'))?.closest('.menu-card');
+      showOrHint(hauptspeisen, mainBuffetDate, 'Hauptspeisen', '15.05.2026, 17:30 Uhr');
+
+      // Beilagen & Gemüse
+      const beilagen = Array.from(document.querySelectorAll('.menu-card-header h3')).find(h3 => h3.textContent.includes('Beilagen'))?.closest('.menu-card');
+      showOrHint(beilagen, mainBuffetDate, 'Beilagen & Gemüse', '15.05.2026, 17:30 Uhr');
+
+      // Soßen
+      const sossen = Array.from(document.querySelectorAll('.menu-card-header h3')).find(h3 => h3.textContent.includes('Soßen'))?.closest('.menu-card');
+      showOrHint(sossen, mainBuffetDate, 'Soßen', '15.05.2026, 17:30 Uhr');
+
+      // Hochzeitstorte
+      const torte = Array.from(document.querySelectorAll('.menu-card-header h3')).find(h3 => h3.textContent.includes('Hochzeitstorte'))?.closest('.menu-card');
+      showOrHint(torte, torteDate, 'Hochzeitstorte', '15.05.2026, 19:30 Uhr');
+
+      // Mitternachtsimbiss
+      const imbiss = Array.from(document.querySelectorAll('.menu-card-header h3')).find(h3 => h3.textContent.includes('Mitternachtsimbiss'))?.closest('.menu-card');
+      showOrHint(imbiss, imbissDate, 'Mitternachtsimbiss', '15.05.2026, 21:30 Uhr');
+
+      // Show admin-only sections for admin users
+      if (window.isAdminMode && window.isAdminMode()) {
+        const adminElements = document.querySelectorAll('.admin-only');
+        adminElements.forEach(element => {
+          element.style.display = 'block';
+        });
+      }
+    });
     // Date gating for buffet content
     document.addEventListener('DOMContentLoaded', function() {
       const today = new Date();
-      const buffetDate = new Date(2026, 4, 1); // May 1, 2026
       const buffetLocked = document.getElementById('buffetLocked');
       const buffetContainer = document.getElementById('buffetContainer');
-      
-      // Show buffet content if date is reached OR user is admin
-      if (today >= buffetDate || (window.isAdminMode && window.isAdminMode())) {
-        buffetLocked.style.display = 'none';
-        buffetContainer.style.display = 'block';
-      } else {
-        buffetLocked.style.display = 'block';
-        buffetContainer.style.display = 'none';
+
+      // Zeitpunkte für einzelne Buffet-Abschnitte
+      const fingerfoodDate = new Date(2026, 4, 15, 12, 0); // 15.05.2026 12:00
+      const kaffeeDate = new Date(2026, 4, 15, 14, 0); // 15.05.2026 14:00
+      const torteDate = new Date(2026, 4, 15, 19, 30); // 15.05.2026 19:30
+      const imbissDate = new Date(2026, 4, 15, 21, 30); // 15.05.2026 21:30
+      const mainBuffetDate = new Date(2026, 4, 15, 17, 30); // 15.05.2026 17:30
+
+      // Helper: Sichtbarkeit setzen
+      function showIfTimeOrAdmin(element, date) {
+        if (!element) return;
+        if (today >= date || (window.isAdminMode && window.isAdminMode())) {
+          element.style.display = '';
+        } else {
+          element.style.display = 'none';
+        }
       }
+
+
+      // Helper: Zeige Hinweis oder Inhalt
+      function showOrHint(element, date, label, info) {
+        if (!element) return;
+        if (today >= date || (window.isAdminMode && window.isAdminMode())) {
+          element.style.display = '';
+          const hint = element.querySelector('.buffet-hint');
+          if (hint) hint.remove();
+          Array.from(element.children).forEach(child => {
+            if (child.style) child.style.display = '';
+          });
+        } else {
+          element.style.display = '';
+          // Inhalt ausblenden, Hinweis einblenden
+          let hint = element.querySelector('.buffet-hint');
+          if (!hint) {
+            hint = document.createElement('div');
+            hint.className = 'buffet-hint';
+            hint.style = 'padding:1.5em 1em;text-align:center;color:#888;font-style:italic;background:#f8f8f8;border-radius:1em;margin:1em 0;';
+            element.insertBefore(hint, element.firstChild.nextSibling); // nach Header
+          }
+          hint.innerHTML = `Verfügbar ab: <b>${info}</b>`;
+          // Alle anderen Inhalte ausblenden (außer Header und Hinweis)
+          Array.from(element.children).forEach(child => {
+            if (child !== hint && !child.classList.contains('menu-card-header')) child.style.display = 'none';
+          });
+        }
+      }
+
+      // Fingerfood
+      const fingerfood = Array.from(document.querySelectorAll('.menu-card-header h3')).find(h3 => h3.textContent.includes('Fingerfood'))?.closest('.menu-card');
+      showOrHint(fingerfood, fingerfoodDate, 'Fingerfood zum Sektempfang', '15.05.2026, 12:00 Uhr');
+
+      // Kaffee und Kuchen
+      const kaffee = Array.from(document.querySelectorAll('.menu-card-header h3')).find(h3 => h3.textContent.includes('Kaffee und Kuchen'))?.closest('.menu-card');
+      showOrHint(kaffee, kaffeeDate, 'Kaffee und Kuchen', '15.05.2026, 14:00 Uhr');
+
+      // Hochzeitstorte
+      const torte = Array.from(document.querySelectorAll('.menu-card-header h3')).find(h3 => h3.textContent.includes('Hochzeitstorte'))?.closest('.menu-card');
+      showOrHint(torte, torteDate, 'Hochzeitstorte', '15.05.2026, 19:30 Uhr');
+
+      // Mitternachtsimbiss
+      const imbiss = Array.from(document.querySelectorAll('.menu-card-header h3')).find(h3 => h3.textContent.includes('Mitternachtsimbiss'))?.closest('.menu-card');
+      showOrHint(imbiss, imbissDate, 'Mitternachtsimbiss', '15.05.2026, 21:30 Uhr');
+
+      // Hauptbuffet-Container immer anzeigen, nur einzelne Elemente werden gesperrt
+      // buffetLocked entfernt, Container ist immer sichtbar
 
       // Show admin-only sections for admin users
       if (window.isAdminMode && window.isAdminMode()) {

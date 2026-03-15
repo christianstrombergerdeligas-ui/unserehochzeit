@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speisekarte</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="admin.js"></script>
+</head>
+<body>
+  <script>
+    (function() {
+      const FREIGABE_DATUM = new Date(2026, 4, 15); // 15.05.2026
+      function isAdmin() {
+        return window.isAdminMode && window.isAdminMode();
+      }
+      function hideContent() {
+        document.body.innerHTML = '<div style="max-width:600px;margin:7em auto 0 auto;padding:2.5em 2em;background:#fffbe7;border-radius:1.2em;box-shadow:0 2px 16px #0001;text-align:center;font-size:1.25em;color:#b44;">Die Speisekarte ist erst ab dem 15.05.2026 verfügbar.</div>';
+      }
+      document.addEventListener('DOMContentLoaded', function() {
+        const now = new Date();
+        if (!isAdmin() && now < FREIGABE_DATUM) {
+          hideContent();
+        }
+      });
+      window.addEventListener('adminStateChanged', function() {
+        location.reload();
+      });
+    })();
+  </script>
+  <header>
+    <div class="header-content">
+      <h1>Unsere Hochzeit</h1>
+      <button id="hamburger" class="hamburger">☰</button>
+      <button id="adminToggle" class="admin-toggle" title="Admin">🔒</button>
+    </div>
+    <nav id="navMenu">
+      <a href="index.html">Start</a>
+      <a href="termine.html">Termine & Orte</a>
+      <a href="anmeldung.html">Anmeldung zur Feier</a>
+      <a href="ablaufplan.html">Ablaufplan</a>
+      <a href="buffet.html">Buffet</a>
+      <a href="fotos.html">Fotos</a>
+      <a href="unterhaltung.html">Unterhaltung</a>
+      <a href="gaestebuch.html">Gästebuch</a>
+      <a href="danksagung.html">Danksagung</a>
+      <a href="speisekarte.html" class="active">Speisekarte</a>
+      <a href="getraenkekarte.html">Getränkekarte</a>
+      <a href="admin.html" id="admin-link" class="hidden-nav-link">Admin</a>
+    </nav>
+  </header>
+    <div class="mb-25"></div>
+  <main>
+    <div class="main-container">
+      <section class="menu-showcase">
+        <div class="menu-banner" style="font-family: 'Montserrat', sans-serif; font-size: 2.8rem; font-weight: 700; color: var(--primary-dark); letter-spacing: -0.5px; text-align: center; margin-bottom: 2.5rem; background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-section) 100%); border-radius: 15px; padding: 2.5rem 1rem; box-shadow: var(--shadow-md);">Speisekarte</div>
+      <article class="menu-card">
+        <div class="menu-card-header">
+          <div class="menu-card-icon">🥨</div>
+          <h3>Fingerfood zum Sektempfang</h3>
+        </div>
+        <ul class="menu-items">
+          <li><span class="item-name">Serrano-Melone im Glas</span></li>
+          <li><span class="item-name">Blätterteigteilchen</span></li>
+          <li><span class="item-name">Mini Frühlingsrolle mit Süß Sauer Soße (Kalt)</span></li>
+          <li><span class="item-name">Laugenteigteilchen</span></li>
+        </ul>
+      </article>
+      <div class="mb-25"></div>
+      <div class="menu-spacer"></div>
+      <article class="menu-card">
+        <div class="menu-card-header">
+          <div class="menu-card-icon">☕</div>
+          <h3>Kaffee und Kuchen</h3>
+        </div>
+        <ul class="menu-items">
+          <li><span class="item-name">Kaffee</span><span class="item-desc">verschiedene Sorten</span></li>
+          <li><span class="item-name">Kuchen-Auswahl</span><span class="item-desc">verschiedene hausgemachte Kuchen</span></li>
+        </ul>
+      </article>
+      <div style="height: 2.5rem;"></div>
+      <article class="menu-card">
+        <div class="menu-card-header">
+          <div class="menu-card-icon">🥗</div>
+          <h3>Vorspeisen</h3>
+        </div>
+        <ul class="menu-items">
+          <li><span class="item-name">Bunter Marktsalat</span><span class="item-desc">Balsamico-Dressing & Honig-Senf-Vinaigrette</span></li>
+          <li><span class="item-name">Salat Caprese</span><span class="item-desc">von Kirschtomaten, Babymozzarella verfeinert von dunklem Balsamico und Kräuteröl</span></li>
+          <li><span class="item-name">Antipasti Variation</span><span class="item-desc">Gefüllte Peperoni, getrocknete Tomaten, marinierte Zucchini, gegrillte Paprika und eingelegte Oliven</span></li>
+          <li><span class="item-name">Symphonie aus dem Meer</span><span class="item-desc">Garnele im Kartoffelmantel / Räucherlachs / Geräucherte Forelle / Mango-Curry-Dip und Preiselbeer-Meerrettich-Dip</span></li>
+        </ul>
+      </article>
+      <div style="height: 2.5rem;"></div>
+      <div class="menu-grid-modern">
+        <article class="menu-card">
+          <div class="menu-card-header">
+            <div class="menu-card-icon">🍖</div>
+            <h3>Hauptspeisen</h3>
+          </div>
+          <ul class="menu-items">
+            <li><span class="item-name">Piccata Milanese von der Hähnchenbrust</span></li>
+            <li><span class="item-name">Rinder Tafelspitz</span></li>
+            <li><span class="item-name">Rosa Schweinelende aus dem Sous Vide</span></li>
+            <li><span class="item-name">Spinatknödel mit Käsesoße</span></li>
+          </ul>
+        </article>
+        <article class="menu-card">
+          <div class="menu-card-header">
+            <div class="menu-card-icon">🥔</div>
+            <h3>Beilagen & Gemüse</h3>
+          </div>
+          <ul class="menu-items">
+            <li><span class="item-name">Dampfkartoffeln</span></li>
+            <li><span class="item-name">Butterbandnudeln</span></li>
+            <li><span class="item-name">Zweierlei Spargelgemüse</span></li>
+            <li><span class="item-name">gratinierter Romanesco und Blumenkohl</span></li>
+            <li><span class="item-name">Buttererbsen</span></li>
+          </ul>
+        </article>
+        <article class="menu-card">
+          <div class="menu-card-header">
+            <div class="menu-card-icon">🥣</div>
+            <h3>Soßen</h3>
+          </div>
+          <ul class="menu-items">
+            <li><span class="item-name">Pfefferrahm Soße</span></li>
+            <li><span class="item-name">Schmortomate</span></li>
+            <li><span class="item-name">Käsesoße</span></li>
+            <li><span class="item-name">Hollandaise</span></li>
+            <li><span class="item-name">Meerrettichsoße</span></li>
+          </ul>
+        </article>
+      </div>
+      <div class="menu-grid-modern">
+        <article class="menu-card">
+          <div class="menu-card-header">
+            <div class="menu-card-icon">🎂</div>
+            <h3>Hochzeitstorte</h3>
+          </div>
+          <ul class="menu-items">
+            <li><span class="item-name">Hochzeitstorte</span><span class="item-desc">mit verschiedenen Füllungen und Dekor</span></li>
+          </ul>
+        </article>
+        <article class="menu-card">
+          <div class="menu-card-header">
+            <div class="menu-card-icon">🌙</div>
+            <h3>Mitternachtimbiss</h3>
+          </div>
+          <ul class="menu-items">
+            <li><span class="item-name">Allgäuer Käsespätzle mit Röstzwiebeln im Töpfchen</span></li>
+            <li><span class="item-name">Currywurst im Töpfchen</span></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getränkekarte</title>
+  <link href="style.css" rel="stylesheet">
+  <script src="admin.js"></script>
+</head>
+<body>
+  <script>
+    (function() {
+      const FREIGABE_DATUM = new Date(2026, 4, 15); // 15.05.2026
+      function isAdmin() {
+        return window.isAdminMode && window.isAdminMode();
+      }
+      function hideContent() {
+        document.body.innerHTML = '<div style="max-width:600px;margin:7rem auto 0 auto;padding:2.5em 2em;background:#fffbe7;border-radius:1.2em;box-shadow:0 2px 16px #0001;text-align:center;font-size:1.25em;color:#b44;">Die Getränkekarte ist erst ab dem 15.05.2026 verfügbar.</div>';
+      }
+      document.addEventListener('DOMContentLoaded', function() {
+        const now = new Date();
+        if (!isAdmin() && now < FREIGABE_DATUM) {
+          hideContent();
+        }
+      });
+      window.addEventListener('adminStateChanged', function() {
+        location.reload();
+      });
+    })();
+  </script>
+  <header>
+    <div class="header-content">
+      <h1>Unsere Hochzeit</h1>
+      <button id="hamburger" class="hamburger">☰</button>
+      <button id="adminToggle" class="admin-toggle" title="Admin">🔒</button>
+    </div>
+    <nav id="navMenu">
+      <a href="index.html">Start</a>
+      <a href="termine.html">Termine & Orte</a>
+      <a href="anmeldung.html">Anmeldung zur Feier</a>
+      <a href="ablaufplan.html">Ablaufplan</a>
+      <a href="buffet.html">Buffet</a>
+      <a href="fotos.html">Fotos</a>
+      <a href="unterhaltung.html">Unterhaltung</a>
+      <a href="gaestebuch.html">Gästebuch</a>
+      <a href="danksagung.html">Danksagung</a>
+      <a href="speisekarte.html">Speisekarte</a>
+      <a href="getraenkekarte.html" class="active">Getränkekarte</a>
+      <a href="admin.html" id="admin-link" class="hidden-nav-link">Admin</a>
+    </nav>
+  </header>
+        <div class="mb-25"></div>
+      <!-- Style moved to CSS -->
+  <main>
+    <section class="menu-showcase">
+      <div class="menu-banner" style="font-family: 'Montserrat', sans-serif; font-size: 2.8rem; font-weight: 700; color: var(--primary-dark); letter-spacing: -0.5px; text-align: center; margin-bottom: 2.5rem; background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-section) 100%); border-radius: 15px; padding: 2.5rem 1rem; box-shadow: var(--shadow-md);">Getränkekarte</div>
+      <article class="menu-card">
+        <div class="menu-card-header">
+          <div class="menu-card-icon">💧</div>
+          <h3>Wasser</h3>
+        </div>
+        <ul class="menu-items">
+          <li><span class="item-name">Stilles Wasser</span></li>
+          <li><span class="item-name">Sprudelwasser</span></li>
+        </ul>
+      </article>
+      <div class="mb-25"></div>
+      <div class="menu-spacer"></div>
+      <article class="menu-card">
+        <div class="menu-card-header">
+          <div class="menu-card-icon">🥤</div>
+          <h3>Softdrinks</h3>
+        </div>
+        <ul class="menu-items">
+          <li><span class="item-name">Coca-Cola</span></li>
+          <li><span class="item-name">Coca-Cola Zero</span></li>
+          <li><span class="item-name">Spezi</span></li>
+          <li><span class="item-name">Fanta</span></li>
+          <li><span class="item-name">Sprite</span></li>
+        </ul>
+      </article>
+      <div style="height: 2.5rem;"></div>
+      <article class="menu-card">
+        <div class="menu-card-header">
+          <div class="menu-card-icon">🍏</div>
+          <h3>Säfte</h3>
+        </div>
+        <ul class="menu-items">
+          <li><span class="item-name">Apfelsaft</span></li>
+          <li><span class="item-name">Orangensaft</span></li>
+          <li><span class="item-name">Bananensaft</span></li>
+        </ul>
+      </article>
+      <div style="height: 2.5rem;"></div>
+      <div class="menu-grid-modern">
+        <article class="menu-card">
+          <div class="menu-card-header">
+            <div class="menu-card-icon">🍺</div>
+            <h3>Bier</h3>
+          </div>
+          <ul class="menu-items">
+            <li><span class="item-name">alkoholfreies Bier</span></li>
+            <li><span class="item-name">Hefeweizen</span></li>
+            <li><span class="item-name">Pils</span></li>
+          </ul>
+        </article>
+        <article class="menu-card">
+          <div class="menu-card-header">
+            <div class="menu-card-icon">🍹</div>
+            <h3>Biermischgetränke</h3>
+          </div>
+          <ul class="menu-items">
+            <li><span class="item-name">Colaweizen</span></li>
+            <li><span class="item-name">Bananenweizen</span></li>
+          </ul>
+        </article>
+      </div>
+      <div style="height: 2.5rem;"></div>
+      <article class="menu-card">
+        <div class="menu-card-header">
+          <div class="menu-card-icon">🥂</div>
+          <h3>Sekt</h3>
+        </div>
+        <ul class="menu-items">
+          <li><span class="item-name">Sekt (alkoholfrei)</span><span class="item-desc">zum Anstoßen</span></li>
+          <li><span class="item-name">Sekt-Orange</span><span class="item-desc">Sekt (alkoholfrei) mit Orangensaft</span></li>
+        </ul>
+      </article>
+      <div style="height: 2.5rem;"></div>
+      <div class="menu-grid-modern">
+        <article class="menu-card">
+          <div class="menu-card-header">
+            <div class="menu-card-icon">🍷</div>
+            <h3>Wein</h3>
+          </div>
+          <ul class="menu-items">
+            <li><span class="item-name">Lambrusco</span><span class="item-desc">Weiß, lieblich</span></li>
+            <li><span class="item-name">Spätburgunder</span><span class="item-desc">Rot, trocken</span></li>
+            <li><span class="item-name">Grauburgunder</span><span class="item-desc">Weiß, trocken</span></li>
+          </ul>
+        </article>
+        <article class="menu-card">
+          <div class="menu-card-header">
+            <div class="menu-card-icon">🍸</div>
+            <h3>Weinschorle</h3>
+          </div>
+          <ul class="menu-items">
+            <li><span class="item-name">Süße Weinschorle</span><span class="item-desc">mit Limonade</span></li>
+            <li><span class="item-name">Saure Weinschorle</span><span class="item-desc">mit Mineralwasser</span></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

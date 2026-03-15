@@ -1,3 +1,7 @@
+/* Margin-Bottom Utility */
+.mb-25 {
+  margin-bottom: 2.5rem;
+}
 /* Deaktivierte Navigationslinks für zukünftige Veröffentlichungen */
 .disabled-link {
   color: #aaa !important;
@@ -8,14 +12,16 @@
 }
 /* Buffet Menü-Showcase volle Breite */
 .menu-showcase {
-  max-width: 1200px;
+  max-width: 100vw;
   margin-left: auto;
   margin-right: auto;
+  width: 100%;
 }
 /* Grid für Mitternachtssnack & Kuchen/Torte immer nebeneinander, auch mobil */
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .menu-grid-modern {
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: 1fr !important;
+    gap: 1.2rem;
   }
 }
 .menu-grid-modern + .menu-grid-modern {
@@ -31,20 +37,12 @@
 /* Immer zwei Spalten für .menu-grid-modern */
 .menu-grid-modern {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
   align-items: stretch;
 }
 /* Grid für Buffet-Menü: Mitternachtssnack und Kuchen & Torte nebeneinander */
-.menu-grid-modern {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(1200px, 1fr));
-  gap: 2rem;
-  align-items: stretch;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-}
+/* entfernt, da oben bereits abgedeckt */
 /* ================== ZENTRALE CSS DATEI ================== */
 /* Google Fonts: Montserrat & Roboto */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap');
@@ -84,12 +82,15 @@ body {
   line-height: 1.6;
 }
 
+
 /* Header, Footer */
 header, footer {
   background-color: var(--primary);
   padding: 1.5rem;
   text-align: center;
   box-shadow: var(--shadow-md);
+  width: 100%;
+  max-width: 100vw;
 }
 
 header {
@@ -102,8 +103,9 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
+  max-width: 100vw;
   margin: 0 auto;
+  flex-wrap: wrap;
 }
 
 header h1 {
@@ -647,7 +649,7 @@ section h2 {
 
 .hero-image {
   width: 100%;
-  max-width: 700px;
+  max-width: 100vw;
   position: relative;
   z-index: 1;
   border-radius: 20px;
@@ -4139,7 +4141,47 @@ button#hostLogin {
   background: rgba(255, 152, 0, 0.08);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+  main, .main {
+    max-width: 100vw;
+    padding: 0 0.5rem;
+  }
+  header, footer {
+    max-width: 100vw;
+    padding: 1rem 0.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  html {
+    font-size: 15px;
+  }
+  body {
+    font-size: 1rem;
+  }
+  .header-content {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  nav {
+    width: 100vw;
+    left: -100vw;
+  }
+  nav.active {
+    left: 0;
+    width: 100vw;
+  }
+  .hero-title, .hero-subtitle, .hero-greeting {
+    text-align: center;
+  }
+  .hero-image {
+    max-width: 100vw;
+    border-radius: 12px;
+  }
+  section, .section {
+    padding: 1rem 0.5rem;
+  }
+}
   .add-guest-form {
     flex-direction: column;
   }
@@ -5562,4 +5604,4 @@ button#hostLogin {
   .spotify-player-wrapper {
     overflow-x: auto;
   }
-}
+/* entfernt: überzählige schließende Klammer */
